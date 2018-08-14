@@ -1,5 +1,8 @@
 package demo;
 
+import com.rometools.rome.feed.atom.Entry;
+import com.rometools.rome.feed.atom.Feed;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,14 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class AtomController
 {
 	@GetMapping(produces = "application/atom+xml;type=feed")
-	public String getFeed()
+	public Feed getFeed()
 	{
-		return "<feed/>";
+		return new Feed("atom_1.0");
 	}
 	
-	@GetMapping(produces = "application/atom+xml;type=entry")
-	public String getEntry()
+	@GetMapping(path = "/entry", produces = "application/atom+xml;type=entry")
+	public Entry getEntry()
 	{
-		return "<entry/>";
+		return new Entry();
 	}
 }
