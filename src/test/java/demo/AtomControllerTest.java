@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -52,5 +53,25 @@ public class AtomControllerTest
 	{
 		mvc.perform(get("/entry").accept("application/atom+xml;type=feed"))
 			.andExpect(status().isNotAcceptable());
+	}
+	
+	@Test
+	public void canPostEntry() throws Exception
+	{
+		mvc.perform(post("/").contentType("application/atom+xml;type=entry")
+				.content("<entry xmlns=\"http://www.w3.org/2005/Atom\"/>")
+			)
+			.andExpect(status().isCreated())
+			.andExpect(content().xml("<entry xmlns=\"http://www.w3.org/2005/Atom\"/>"));
+	}
+	
+	@Test
+	public void canAddFeed() throws Exception
+	{
+		mvc.perform(post("/").contentType("application/atom+xml;type=feed")
+				.content("<feed xmlns=\"http://www.w3.org/2005/Atom\"/>")
+			)
+			.andExpect(status().isCreated())
+			.andExpect(content().xml("<feed xmlns=\"http://www.w3.org/2005/Atom\"/>"));
 	}
 }
