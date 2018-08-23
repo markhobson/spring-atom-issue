@@ -17,6 +17,8 @@ import com.rometools.rome.io.WireFeedOutput;
 
 import static java.util.Collections.singletonList;
 
+import static demo.AtomMediaTypes.APPLICATION_ATOM_FEED_XML;
+
 /**
  * Spring HTTP message converter for an Atom feed.
  */
@@ -24,7 +26,7 @@ public class AtomFeedWithTypeHttpMessageConverter extends AtomFeedHttpMessageCon
 {
 	public AtomFeedWithTypeHttpMessageConverter()
 	{
-		setSupportedMediaTypes(singletonList(MediaType.valueOf("application/atom+xml;type=feed")));
+		setSupportedMediaTypes(singletonList(APPLICATION_ATOM_FEED_XML));
 	}
 
 	// Workaround: https://jira.spring.io/browse/SPR-17040

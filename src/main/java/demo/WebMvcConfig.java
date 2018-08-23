@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.feed.AtomFeedHttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -22,5 +23,13 @@ public class WebMvcConfig implements WebMvcConfigurer
 		
 		// Add new Atom entry message converter
 		converters.add(new AtomEntryHttpMessageConverter());
+	}
+	
+	@Override
+	public void configureContentNegotiation(ContentNegotiationConfigurer configurer)
+	{
+		// Replace default content negotiation strategy with one that honours Atom media types
+		configurer.ignoreAcceptHeader(true)
+			.defaultContentTypeStrategy(new AtomHeaderContentNegotiationStrategy());
 	}
 }

@@ -20,6 +20,8 @@ import com.rometools.rome.io.XmlReader;
 import com.rometools.rome.io.impl.Atom10Generator;
 import com.rometools.rome.io.impl.Atom10Parser;
 
+import static demo.AtomMediaTypes.APPLICATION_ATOM_ENTRY_XML;
+
 /**
  * Spring HTTP message converter for an Atom feed entry.
  */
@@ -29,7 +31,7 @@ public class AtomEntryHttpMessageConverter extends AbstractHttpMessageConverter<
 	
 	public AtomEntryHttpMessageConverter()
 	{
-		super(MediaType.valueOf("application/atom+xml;type=entry"));
+		super(APPLICATION_ATOM_ENTRY_XML);
 	}
 	
 	@Override
