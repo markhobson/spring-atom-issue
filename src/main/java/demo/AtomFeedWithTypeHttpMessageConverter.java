@@ -20,7 +20,9 @@ import static java.util.Collections.singletonList;
 import static demo.AtomMediaTypes.APPLICATION_ATOM_FEED_XML;
 
 /**
- * Spring HTTP message converter for an Atom feed.
+ * Spring HTTP message converter for an Atom feed that honours the type parameter.
+ * 
+ * @see <a href="https://jira.spring.io/browse/SPR-17040">SPR-17040</a>
  */
 public class AtomFeedWithTypeHttpMessageConverter extends AtomFeedHttpMessageConverter
 {
@@ -29,8 +31,7 @@ public class AtomFeedWithTypeHttpMessageConverter extends AtomFeedHttpMessageCon
 		setSupportedMediaTypes(singletonList(APPLICATION_ATOM_FEED_XML));
 	}
 
-	// Workaround: https://jira.spring.io/browse/SPR-17040
-	// modified from AbstractWireFeedHttpMessageConverter.writeInternal
+	// Modified from AbstractWireFeedHttpMessageConverter.writeInternal
 	@Override
 	protected void writeInternal(Feed wireFeed, HttpOutputMessage outputMessage) throws IOException,
 		HttpMessageNotWritableException

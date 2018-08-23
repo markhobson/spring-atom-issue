@@ -13,6 +13,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Demonstrates the various use-cases when using Atom media types.
+ */
 @RunWith(SpringRunner.class)
 @WebMvcTest
 public class AtomControllerTest
@@ -20,11 +23,6 @@ public class AtomControllerTest
 	@Autowired
 	private MockMvc mvc;
 	
-	/**
-	 * Demonstrates that the Atom media type parameter is ignored during content negotiation.
-	 *
-	 * @see <a href="https://jira.spring.io/browse/SPR-10903">SPR-10903</a>
-	 */
 	@Test
 	public void canGetFeed() throws Exception
 	{
@@ -65,6 +63,8 @@ public class AtomControllerTest
 			.andExpect(content().xml("<entry xmlns=\"http://www.w3.org/2005/Atom\"/>"));
 	}
 	
+	// Currently fails during content negotiation since there's no easy way to configure ConsumesRequestCondition to use
+	// Atom media types.
 	@Test
 	public void canAddFeed() throws Exception
 	{

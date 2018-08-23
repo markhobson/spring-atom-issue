@@ -11,6 +11,8 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * Content negotiation strategy that uses the {@code Accept} header and resolves Atom media types.
+ * 
+ * @see <a href="https://jira.spring.io/browse/SPR-10903">SPR-10903</a>
  */
 public class AtomHeaderContentNegotiationStrategy extends HeaderContentNegotiationStrategy
 {

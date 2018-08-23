@@ -5,7 +5,7 @@ import org.springframework.http.MediaType;
 import static java.util.Collections.singletonMap;
 
 /**
- * Media types for Atom documents.
+ * Media types for Atom documents that honour the type parameter.
  *
  * @see <a href="https://tools.ietf.org/html/rfc5023#section-12">The Atom Publishing Protocol</a>
  */

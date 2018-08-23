@@ -14,21 +14,23 @@ public class WebMvcConfig implements WebMvcConfigurer
 	@Override
 	public void extendMessageConverters(List<HttpMessageConverter<?>> converters)
 	{
-		// Replace default Atom feed message converter with one that can add 'type' parameter to Content-Type header
+		// Workaround SPR-17040 by replacing default Atom feed message converter with one that can add 'type' parameter
+		// to Content-Type header.
 		converters.stream()
 			.filter(converter -> converter instanceof AtomFeedHttpMessageConverter)
 			.findFirst()
 			.map(converters::remove);
 		converters.add(new AtomFeedWithTypeHttpMessageConverter());
 		
-		// Add new Atom entry message converter
+		// Add message converter for Atom feed entries (no issue raised yet)
 		converters.add(new AtomEntryHttpMessageConverter());
 	}
 	
 	@Override
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer)
 	{
-		// Replace default content negotiation strategy with one that honours Atom media types
+		// Workaround SPR-10903 by replacing default content negotiation strategy with one that honours Atom media
+		// types. This fixes it for produces request conditions only.
 		configurer.ignoreAcceptHeader(true)
 			.defaultContentTypeStrategy(new AtomHeaderContentNegotiationStrategy());
 	}
